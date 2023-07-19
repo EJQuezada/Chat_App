@@ -1,7 +1,7 @@
 # Chat_App
 
 
-#Instructions for use (starting in PowerShell)
+# Instructions for use (starting in PowerShell)
 Run npm install to set up dependencies
 
 Run npx expo start on your terminal to start expo
