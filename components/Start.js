@@ -7,6 +7,7 @@ import {
     Button, 
     TextInput, 
     TouchableOpacity,
+    KeyboardAvoidingView,
     Alert, 
 } from 'react-native';
 
@@ -17,7 +18,7 @@ const backgroundColors = {
     b: '#757083',
     c: '#8A95A5',
     d: '#B9C6AE',
-  };
+};
 
 const Start = ({ navigation }) => {
     const [name, setName] = useState('');
@@ -29,7 +30,7 @@ const Start = ({ navigation }) => {
             resizeMode='cover'
             style={styles.backgroundImage}
         >
-            
+
         <View style={styles.container}>
              <ImageBackground source={image} resizeMode="cover" style={styles.image}>
                 <Text> Welcome to Chat App!</Text>
