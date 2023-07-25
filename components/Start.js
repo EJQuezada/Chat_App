@@ -8,9 +8,9 @@ import {
     TextInput, 
     TouchableOpacity,
     Alert, 
-} from "react-native";
+} from 'react-native';
 
-const image = require();
+const image = {uri: 'https://legacy.reactjs.org/logo-og.png'};
 
 const backgroundColors = {
     a: '#474056',
@@ -24,6 +24,12 @@ const Start = ({ navigation }) => {
     const [color, setColor] = useState(backgroundColors.d)
 
     return (
+        <ImageBackground
+            source={require("../assets/BackgroundImage.png")}
+            resizeMode='cover'
+            style={styles.backgroundImage}
+        >
+            
         <View style={styles.container}>
              <ImageBackground source={image} resizeMode="cover" style={styles.image}>
                 <Text> Welcome to Chat App!</Text>
@@ -41,7 +47,7 @@ const Start = ({ navigation }) => {
             </ImageBackground>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
