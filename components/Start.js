@@ -8,44 +8,73 @@ import {
     TextInput, 
     TouchableOpacity,
     KeyboardAvoidingView,
-    Alert, 
+    Alert,
+    Platform, 
 } from 'react-native';
 
 const image = {uri: 'https://legacy.reactjs.org/logo-og.png'};
 
-const backgroundColors = {
-    a: '#474056',
-    b: '#757083',
-    c: '#8A95A5',
-    d: '#B9C6AE',
-};
+
 
 const Start = ({ navigation }) => {
     const [name, setName] = useState('');
     const [color, setColor] = useState(backgroundColors.d)
 
-    return (
-        <ImageBackground
-            source={require("../assets/BackgroundImage.png")}
-            resizeMode='cover'
-            style={styles.backgroundImage}
-        >
+    const backgroundColors = {
+    a: '#474056',
+    b: '#757083',
+    c: '#8A95A5',
+    d: '#B9C6AE',
+    };
 
+    return (
         <View style={styles.container}>
-             <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-                <Text> Welcome to Chat App!</Text>
-                <TextInput
-                    style={styles.textInput}
-                    value={name}
-                    onChangeText={setName}
-                    placeholder='Type your username here'
-                    placeholderTextColor= '#B9C6AE'
-                />
-                <Button
-                    title="Go to Chat Screen"
-                    onPress={() => navigation.navigate('Chat Screen', { name: name})}
-                />
+            <ImageBackground 
+                source={require("../assets/BackgroundImage.png")} resizeMode="cover" style={styles.backgroundImage}
+            >
+                <View style={styles.titlebox}>
+                    <Text style={styles.title}> Welcome to Chat App!</Text>
+                </View>
+                <View style={styles.box}>
+                    <View style={styles.textcontainer}>
+                        <Image styles={styles.icon} source={require('..//assets/user-icon.png')}></Image>
+                    <TextInput
+                        style={styles.textInput}
+                        value={name}
+                        onChangeText={setName}
+                        placeholder='Type your username here'
+                        placeholderTextColor= '#B9C6AE'
+                    />
+                </View>
+                <Text style={styles.chooseBackgroundText}>Choose background color: {color.backgroundColor}</Text>
+                <View style={styles.colorBox}>
+                    <TouchableOpacity
+                        style={[styles.colorButton, backgroundColor.black, color === backgroundColor.black.backgroundColor ? styles.selectedColorButton : '']}
+                        onPress={() => setColor(backgroundColor.black.backgroundColor)} >
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styles.colorButton, backgroundColor.purple, color === backgroundColor.purple.backgroundColor ? styles.selectedColorButton : '']}
+                        onPress={() => setColor(backgroundColor.purple.backgroundColor)} >
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styles.colorButton, backgroundColor.grey, color === backgroundColor.grey.backgroundColor ? styles.selectedColorButton : '']}
+                        onPress={() => setColor(backgroundColor.grey.backgroundColor)} >
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styles.colorButton, backgroundColor.green, color === backgroundColor.green.backgroundColor ? styles.selectedColorButton : '']}
+                        onPress={() => setColor(backgroundColor.green.backgroundColor)}>
+                    </TouchableOpacity>
+                </View>    
+                <TouchableOpacity
+                    style={styles.chatButton}>
+                    <Text style={styles.chatButtonText}>Start chatting</Text>
+                </TouchableOpacity>    
+            </View>
             </ImageBackground>
+            {/*Fix keyboard hides the message input field on Android*/}
+            { Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null }
+            {/*Fix keyboard hides the message input field on iOS*/}
+            { Platform.OS === 'ios' ? <KeyboardAvoidingView behavior="padding" /> : null }
         </View>
     );
 };
@@ -59,7 +88,7 @@ const styles = StyleSheet.create({
     },
     textInput: {
         fontSize: 14,
-        fontWeight: "300",
+        fontWeight: '300',
         color: "black",
         width: "88%",
         padding: 15,
