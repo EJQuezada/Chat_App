@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { 
     ImageBackground,
+    Image,
     StyleSheet, 
     View, 
     Text, 
@@ -14,17 +15,15 @@ import {
 
 const image = {uri: 'https://legacy.reactjs.org/logo-og.png'};
 
-
-
 const Start = ({ navigation }) => {
     const [name, setName] = useState('');
-    const [color, setColor] = useState(backgroundColors.d)
+    const [color, setColor] = useState(backgroundColor.d)
 
-    const backgroundColors = {
-    a: '#474056',
-    b: '#757083',
-    c: '#8A95A5',
-    d: '#B9C6AE',
+    const backgroundColor = {
+    black: { backgroundColor: '#090C08'},
+    purple: { backgroundColor: '#474055'},
+    grey: { backgroundColor: '#8A95A5' },
+    green: { backgroundColor: '#B9C6AE' }
     };
 
     return (
@@ -66,7 +65,8 @@ const Start = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>    
                 <TouchableOpacity
-                    style={styles.chatButton}>
+                    style={styles.chatButton}
+                    onPress={() => navigation.navigate('Chat', { name: name, color: color})} >
                     <Text style={styles.chatButtonText}>Start chatting</Text>
                 </TouchableOpacity>    
             </View>
