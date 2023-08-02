@@ -50,6 +50,7 @@ const Chat = ({ route, navigation }) => {
                 }}
             />
             {Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null }
+            {Platform.OS === 'ios' ? <KeyboardAvoidingView behavior="padding" /> : null }
         </View>
     );
 };
@@ -71,11 +72,9 @@ const renderBubble = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        //justifyContent: 'center',
+        //alignItems: 'center'
     },
 });
-
-export default Chat;
 
 export default Chat;
