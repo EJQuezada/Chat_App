@@ -10,7 +10,7 @@ import {
 import { Bubble, GiftedChat } from "react-native-gifted-chat";
 
 const Chat = ({ route, navigation }) => {
-    const { name } = route.params;
+    const { name, color } = route.params;
     const [messages, setMessages] = useState([]);
     const onSend = (newMessages) => {
         setMessages (previousMessages => GiftedChat.append(previousMessages, newMessages))
@@ -55,7 +55,7 @@ const Chat = ({ route, navigation }) => {
     }, []);
 
     return (
-        <View>
+        <View style={[styles.container, {backgroundColor: color }]}>
             <GiftedChat
                 messages={messages}
                 renderBubble={renderBubble}
@@ -90,5 +90,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
 });
+
+export default Chat;
 
 export default Chat;
