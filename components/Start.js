@@ -17,7 +17,7 @@ const image = {uri: 'https://legacy.reactjs.org/logo-og.png'};
 
 const Start = ({ navigation }) => {
     const [name, setName] = useState('');
-    const [color, setColor] = useState(backgroundColor.d)
+    const [color, setColor] = useState(backgroundColor.green)
 
     const backgroundColor = {
     black: { backgroundColor: '#090C08'},
