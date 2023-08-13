@@ -4,6 +4,7 @@ import {
     Image,
     StyleSheet, 
     View, 
+    FlatList,
     Text, 
     Button, 
     TextInput, 
@@ -12,6 +13,7 @@ import {
     Alert,
     Platform, 
 } from 'react-native';
+import { getAuth, signInAnonymously } from 'firebase/auth';
 
 const image = {uri: 'https://legacy.reactjs.org/logo-og.png'};
 
@@ -20,10 +22,27 @@ const Start = ({ navigation }) => {
     const [color, setColor] = useState('')
 
     const backgroundColor = {
-    black: { backgroundColor: '#090C08'},
-    purple: { backgroundColor: '#474055'},
-    grey: { backgroundColor: '#8A95A5' },
-    green: { backgroundColor: '#B9C6AE' }
+        black: { backgroundColor: '#090C08'},
+        purple: { backgroundColor: '#474055'},
+        grey: { backgroundColor: '#8A95A5' },
+        green: { backgroundColor: '#B9C6AE' }
+    };
+
+    //Function to sign in user anonymously
+    const signInUser = () => {
+        signInAnonymously(auth)
+            .then((result) => {
+                //Commands to navigate to Chat screen using user ID, name, and splash color
+                navigation.navigate('Chat', {
+                    uid: result.user.uid,
+                    name: name,
+                    color: color ? color: 'white',  
+                });
+                Alert.alert('You have signed-in successfully!');
+            })
+            .catch((error) => {
+                Alert.alert('At the moment we are unable to sign you in. Please try again later.');
+            });
     };
 
     return (
@@ -154,7 +173,7 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: '#757083',
         alignContent: 'center'
-    }
+    },
 });
 
 export default Start;
