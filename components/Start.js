@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { 
     ImageBackground,
     Image,
@@ -12,12 +12,15 @@ import {
     KeyboardAvoidingView,
     Alert,
     Platform, 
-} from 'react-native';
-import { getAuth, signInAnonymously } from 'firebase/auth';
+} from "react-native";
+import { getAuth, signInAnonymously } from "firebase/auth";
 
 const image = {uri: 'https://legacy.reactjs.org/logo-og.png'};
 
 const Start = ({ navigation }) => {
+    //Add signInUser function to login anonymously
+    const auth = getAuth();
+
     const [name, setName] = useState('');
     const [color, setColor] = useState('')
 
