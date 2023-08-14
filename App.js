@@ -17,6 +17,7 @@ import {
 import Chat from "./components/Chat";
 import Start from "./components/Start";
 
+import { useNetInfo } from "@react-native-community/netinfo";
 import { useEffect } from "react";
 
 //import react Navigation
