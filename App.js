@@ -29,7 +29,7 @@ const Stack = createNativeStackNavigator();
 
 //import Firestore
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, disableNetwork, enableNetwork } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 //import { useEffect } from "react";
@@ -84,7 +84,7 @@ const App = () => {
           name='Start'
           component={Start}
         />
-        <Stack.Screen name='Chat' component={Chat}>
+        <Stack.Screen name='Chat'>
           {(props) => (<Chat isConnected={connectionStatus.isConnected}
                       db={db}
                       storage={storage}
