@@ -30,10 +30,6 @@ const Chat = ({ db, route, navigation, isConnected, storage }) => {
 
     //set the initial state from messages
     const [messages, setMessages] = useState([]);
-    
-//    const onSend = (newMessages) => {
-//        addDoc(collection(db, 'messages'), newMessages[0])
-//    } 
 
     let unsubMessages;
 
@@ -67,10 +63,10 @@ const Chat = ({ db, route, navigation, isConnected, storage }) => {
                             ...doc.data(),
                             createdAt: new Date(doc.data().createdAt.toMillis())
                         })
+                });
+                cacheMessages(newMessages);
+                setMessages(newMessages);
             });
-            cacheMessages(newMessages);
-            setMessages(newMessages);
-        });
     } else loadCachedMessages();
     
     //Clean up code
@@ -81,15 +77,15 @@ const Chat = ({ db, route, navigation, isConnected, storage }) => {
 
 const cacheMessages = async (messagesToCache) => {
     try {
-        await AsyncStorage.setItem("messages", JSON.stringify(messagesToCache));
+        await AsyncStorage.setItem('messages', JSON.stringify(messagesToCache));
     } catch (error) {
         console.log(error.message);
     }
 }
 
 const loadCachedMessages = async () => {
-    const cacheMessages = await AsyncStorage.getItem('messages') || [];
-    setMessages(JSON.parse(cacheMessages));
+    const cachedMessages = await AsyncStorage.getItem('messages') || [];
+    setMessages(JSON.parse(cachedMessages));
 }
 
 const onSend = (newMessages) => {
@@ -114,9 +110,9 @@ const renderInputToolbar = (props) => {
     else return null;
 }
 
-const renderCustomActions = (props) => {
-    return <CustomActions storage={storage} {...props} />;
-};
+//const renderCustomActions = (props) => {
+//    return <CustomActions storage={storage} {...props} />;
+//};
 
 const renderCustomView = (props) => {
     const { currentMessage } = props;
@@ -143,14 +139,13 @@ const renderCustomView = (props) => {
 
 // Render the Chat component
     return (
-        <View style={[styles.container, {backgroundColor: color }]}>
+        <View style={[styles.container, { backgroundColor: color }]}>
             <GiftedChat
-                style={styles.container}
                 messages={messages}
                 renderInputToolbar={renderInputToolbar}
                 renderBubble={renderBubble}
                 onSend={messages => onSend(messages)}
-                renderActions={renderCustomActions}
+                //renderActions={renderCustomActions}
                 renderCustomView={renderCustomView}
                 user={{
                     _id: uid,
@@ -161,26 +156,12 @@ const renderCustomView = (props) => {
             {Platform.OS === 'ios' ? <KeyboardAvoidingView behavior="padding" /> : null }
         </View>
     );
-};
-
-//const renderBubble = (props) => {
-//    return <Bubble
-//        {...props}
-//        wrapperStyle={{
-//            right: {
-//                backgroundColor: "#000"
-//            },
-//            left: {
-//                backgroundColor: "#FFF"
-//            }
-//        }}
-//    />
-//}
+}
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    },
+    }
 });
 
 export default Chat;
