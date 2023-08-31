@@ -22,7 +22,7 @@ const Start = ({ navigation }) => {
     const auth = getAuth();
 
     const [name, setName] = useState('');
-    const [color, setColor] = useState('')
+    const [color, setColor] = useState('');
 
     const backgroundColor = {
         black: { backgroundColor: '#090C08'},
@@ -88,9 +88,10 @@ const Start = ({ navigation }) => {
                 </View>    
                 <TouchableOpacity
                     style={styles.chatButton}
-                    onPress={() => navigation.navigate('Chat', { name: name, color: color})} >
+                    onPress={signInUser} >
                     <Text style={styles.chatButtonText}>Start chatting</Text>
                 </TouchableOpacity>    
+                
             </View>
             </ImageBackground>
             {/*Fix keyboard hides the message input field on Android*/}
