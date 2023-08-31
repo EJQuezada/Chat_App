@@ -17,8 +17,6 @@ import {
 import Chat from "./components/Chat";
 import Start from "./components/Start";
 
-import { useNetInfo } from "@react-native-community/netinfo";
-import { useEffect } from "react";
 
 //import react Navigation
 import { NavigationContainer } from "@react-navigation/native";
@@ -32,7 +30,8 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, disableNetwork, enableNetwork } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
-//import { useEffect } from "react";
+import { useNetInfo } from "@react-native-community/netinfo";
+import { useEffect } from "react";
 
 const App = () => {
  //Web application's Firebase configuration 
@@ -92,60 +91,7 @@ const App = () => {
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
-
-    //<View style={styles.container}>
-    //  <NavigationContainer>
-    //    <Text>Chat Application</Text>
-    //    <TextInput
-    //      style={styles.textInput}
-    //      value={text}
-    //      onChangeText={setText}
-    //      placeholder='Type Something Here'
-    //    />
-    //    <Text style={styles.textDisplay}>You wrote: {text}</Text>
-    //    <Button
-    //      onPress={() => {
-    //        alertMyText();
-    //      }}
-    //      title="Press Me"
-    //    />
-    //    <StatusBar style="auto" />
-    //  </NavigationContainer>
-    //</View>
   );
-};
-
-//const styles = StyleSheet.create({
-//  container: {
-//    flex: 1,
-//    backgroundColor: '#fff',
-//    alignItems: 'center',
-//    justifyContent: 'center',
-//  },
-//  blue: {
-//    color: 'blue',
-//   fontWeight: '600',
-//  },
-//  bigRed: {
-//    color: 'red',
-//    fontSize: 30,
-//    fontWeight: '300',
-//  },
-//  box: {
-//    width: 60,
-//    height: 60,
-//    backgroundColor: 'blue',
-//  },
-//  textInput: {
-//    width: '88%',
-//    borderWidth: 1,
-//    height: 50,
- //   padding: 10
-//  },
-//  textDisplay: {
-//    height: 50,
-//    lineHeight: 50
-//  }
-//});
+}
 
 export default App;
