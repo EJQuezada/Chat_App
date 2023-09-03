@@ -117,7 +117,7 @@ const renderInputToolbar = (props) => {
 const renderCustomActions = (props) => {
     return <CustomActions 
             storage={storage} 
-            userID = {userID} 
+            uid = {uid} 
             {...props} 
             />;
 };
