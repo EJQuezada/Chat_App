@@ -5,7 +5,6 @@ import * as MediaLibrary from "expo-media-library";
 import * as Location from "expo-location";
 import { useState } from "react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import e from "express";
 
 const CustomActions = ({ wrapperStyle, iconTextStyle, onSend, storage, userID }) => {
     const ActionSheet = useActionSheet();
@@ -77,7 +76,7 @@ const CustomActions = ({ wrapperStyle, iconTextStyle, onSend, storage, userID })
         const timeStamp = (new Date()).getTime();
         const imageName = uri.split('/')[uri.split('/').length - 1];
         //combining multiple strings to creat an image reference
-        return `${userId}-${timeStamp}-${imageName}`;
+        return `${uid}-${timeStamp}-${imageName}`;
     }
 
     const uploadAndSendImage = async (imageURI) => {
