@@ -21,8 +21,9 @@ import {
     onSnapshot, 
     orderBy
 } from "firebase/firestore";
-//import AsyncStorage from "@react-native-async-storage/async-storage";
-//import MapView from "react-native-maps";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import CustomActions from "./CustomActions";
+import MapView from "react-native-maps";
 
 
 const Chat = ({ db, route, navigation, isConnected, storage }) => {
@@ -88,11 +89,13 @@ const loadCachedMessages = async () => {
     setMessages(JSON.parse(cachedMessages));
 }
 
+// function to add new messages to the firebase DB
 const onSend = (newMessages) => {
     addDoc(collection(db, 'messages'), newMessages[0])
     setMessages(previousMessages => GiftedChat.append(previousMessages, newMessages))
 }
 
+//styling fir chat bubbles
 const renderBubble = (props) => {
     return <Bubble {...props}
     wrapperStyle={{
@@ -110,10 +113,16 @@ const renderInputToolbar = (props) => {
     else return null;
 }
 
-//const renderCustomActions = (props) => {
-//    return <CustomActions storage={storage} {...props} />;
-//};
+//adds + button
+const renderCustomActions = (props) => {
+    return <CustomActions 
+            storage={storage} 
+            userID = {userID} 
+            {...props} 
+            />;
+};
 
+//ascertains whether message contains location data to launch MapView if it does
 const renderCustomView = (props) => {
     const { currentMessage } = props;
     if (currentMessage.location) {
@@ -145,7 +154,7 @@ const renderCustomView = (props) => {
                 renderInputToolbar={renderInputToolbar}
                 renderBubble={renderBubble}
                 onSend={messages => onSend(messages)}
-                //renderActions={renderCustomActions}
+                renderActions={renderCustomActions}
                 renderCustomView={renderCustomView}
                 user={{
                     _id: uid,
