@@ -27,17 +27,17 @@ import MapView from "react-native-maps";
 
 
 const Chat = ({ db, route, navigation, isConnected, storage }) => {
-    const { name, color, uid } = route.params;
+    const { name, color, userID } = route.params;
 
     //set the initial state from messages
     const [messages, setMessages] = useState([]);
 
     let unsubMessages;
 
-    useEffect(() => {
-        //Set navigation options for the title
-        navigation.setOptions({ title: name });
-    }, []);
+//    useEffect(() => {
+//        //Set navigation options for the title
+//        navigation.setOptions({ title: name });
+//    }, []);
 
     useEffect(() => {
         //Set the state with a static message
@@ -65,7 +65,7 @@ const Chat = ({ db, route, navigation, isConnected, storage }) => {
                             createdAt: new Date(doc.data().createdAt.toMillis())
                         })
                 });
-                cacheMessages(newMessages);
+                cachedMessages(newMessages);
                 setMessages(newMessages);
             });
     } else loadCachedMessages();
@@ -76,7 +76,7 @@ const Chat = ({ db, route, navigation, isConnected, storage }) => {
     }
 }, [isConnected]);
 
-const cacheMessages = async (messagesToCache) => {
+const cachedMessages = async (messagesToCache) => {
     try {
         await AsyncStorage.setItem('messages', JSON.stringify(messagesToCache));
     } catch (error) {
@@ -95,7 +95,7 @@ const onSend = (newMessages) => {
     setMessages(previousMessages => GiftedChat.append(previousMessages, newMessages))
 }
 
-//styling fir chat bubbles
+//styling for chat bubbles
 const renderBubble = (props) => {
     return <Bubble {...props}
     wrapperStyle={{
@@ -117,7 +117,7 @@ const renderInputToolbar = (props) => {
 const renderCustomActions = (props) => {
     return <CustomActions 
             storage={storage} 
-            uid = {uid} 
+            userID = {userID} 
             {...props} 
             />;
 };
@@ -151,16 +151,18 @@ const renderCustomView = (props) => {
         <View style={[styles.container, { backgroundColor: color }]}>
             <GiftedChat
                 messages={messages}
-                renderInputToolbar={renderInputToolbar}
+                //not renderInputToolbar
+                InputToolbar={renderInputToolbar}
                 renderBubble={renderBubble}
                 onSend={messages => onSend(messages)}
                 renderActions={renderCustomActions}
                 renderCustomView={renderCustomView}
                 user={{
-                    _id: uid,
+                    _id: userID,
                     name: name,
                 }}
             />
+   
             {Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null }
             {Platform.OS === 'ios' ? <KeyboardAvoidingView behavior="padding" /> : null }
         </View>
