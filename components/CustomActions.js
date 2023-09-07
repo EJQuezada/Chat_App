@@ -3,19 +3,22 @@ import { useActionSheet } from "@expo/react-native-action-sheet";
 import * as ImagePicker from "expo-image-picker";
 import * as MediaLibrary from "expo-media-library";
 import * as Location from "expo-location";
+import MapView from "react-native-maps";
 import { useState } from "react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { useEffect } from "react";
 
 const CustomActions = ({ wrapperStyle, iconTextStyle, onSend, storage, userID }) => {
-    const ActionSheet = useActionSheet();
+    const actionSheet = useActionSheet();
 
+    //Sets up the options for the action button in the input toolbar
     const onActionPress = () => {
         const options = ['Choose from Library', 'Take Picture', 'Send Location', 'Cancel'];
         const cancelButtonIndex = options.length - 1;
-        ActionSheet.showActionSheetWithOptions(
+        actionSheet.showActionSheetWithOptions(
             {
                 options, 
-                cancelButtonIndex
+                cancelButtonIndex,
             },
             async (buttonIndex) => {
                 switch (buttonIndex) {
@@ -34,28 +37,29 @@ const CustomActions = ({ wrapperStyle, iconTextStyle, onSend, storage, userID })
         );
     };
 
+     //requesting permission to access media library
     const pickImage = async () => {
-        //requesting permission to access media library
         let permissions = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (permissions?.granted) {
             //launches image library
             let result = await ImagePicker.launchImageLibraryAsync();
             //update the state if user does not cancel image picking
             if (!result.canceled) await uploadAndSendImage(result.assets[0].uri);
-        }
         else Alert.alert('Permissions have not been granted yet.');
+        }
     }
 
+    //requesting permission to use the camera on the device to add picture to the chat
     const takePhoto = async () => {
         let permissions = await ImagePicker.requestCameraPermissionsAsync();
         if (permissions?.granted) {
             let result = await ImagePicker.launchCameraAsync();
             if (!result.canceled) await uploadAndSendImage(result.assets[0].uri);
+            else Alert.alert('Permissions have not been granted yet.');
         }
-        else Alert.alert('Permissions have not been granted yet.');
     }
 
-    //Sends location
+    //requesting permission to access and send device location
     const getLocation = async () => {
         let permissions = await Location.requestForegroundPermissionsAsync();
         if (permissions?.granted) {
@@ -64,7 +68,7 @@ const CustomActions = ({ wrapperStyle, iconTextStyle, onSend, storage, userID })
                 onSend({
                     location: {
                         longitude: location.coords.longitude,
-                        latitued: location.coords.latitude,
+                        latitude: location.coords.latitude,
                     },
                 });
             } else Alert.alert('Error occurred while fetching your location');
@@ -76,7 +80,7 @@ const CustomActions = ({ wrapperStyle, iconTextStyle, onSend, storage, userID })
         const timeStamp = (new Date()).getTime();
         const imageName = uri.split('/')[uri.split('/').length - 1];
         //combining multiple strings to creat an image reference
-        return `${uid}-${timeStamp}-${imageName}`;
+        return `${userID}-${timeStamp}-${imageName}`;
     }
 
     const uploadAndSendImage = async (imageURI) => {
@@ -96,7 +100,9 @@ const CustomActions = ({ wrapperStyle, iconTextStyle, onSend, storage, userID })
     }
 
     return (
-        <TouchableOpacity style={StyleSheet.container} onPress={onActionPress}>
+        <TouchableOpacity 
+            style={styles.container} 
+            onPress={onActionPress}>
             <View style={[styles.wrapper, wrapperStyle]}>
                 <Text style={[styles.iconText, iconTextStyle]}>
                     +
@@ -128,4 +134,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default CustomActions
+export default CustomActions;
