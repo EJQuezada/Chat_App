@@ -37,7 +37,7 @@ const Start = ({ navigation }) => {
             .then((result) => {
                 //Commands to navigate to Chat screen using user ID, name, and splash color
                 navigation.navigate('Chat', {
-                    uid: result.user.uid,
+                    userID: result.user.userID,
                     name: name,
                     color: color ? color: 'white',  
                 });
