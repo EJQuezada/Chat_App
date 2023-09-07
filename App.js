@@ -9,13 +9,17 @@ import {
   Button, 
   TouchableOpacity,
   LogBox,
+  Image,
   Alert,
   ScrollView 
 } from "react-native";
+import MapView from "react-native-maps";
+import * as ImagePicker from "expo-image-picker";
+import * as Location from "expo-location";
 
 //import the Chat and Start screens
-import Chat from "./components/Chat";
-import Start from "./components/Start";
+import Chat from "./components/Chat.js";
+import Start from "./components/Start.js";
 
 //import react Navigation
 import { NavigationContainer } from "@react-navigation/native";
@@ -36,7 +40,7 @@ import { useNetInfo } from "@react-native-community/netinfo";
 import { useEffect } from "react";
 
 const App = () => {
- //Web application's Firebase configuration 
+ //Web application's Firebase configuration for storage
   const firebaseConfig = {
     apiKey: "AIzaSyCBCDBZhTKVJsane_M4CwuPZKUjlgu18no",
     authDomain: "we-chat-application.firebaseapp.com",
@@ -66,6 +70,43 @@ const App = () => {
     Alert.alert(text);
   }
 
+  const [image, setImage] = useState(null);
+  const [location, setLocation] = useState(null);
+
+  // pick image from the library
+  const pickImage = async () => {
+    let permissions = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissions?.granted) {
+      let result = await ImagePicker.launchImageLibraryAsync();
+
+      if (!result.canceled) setImage(result.assets[0]);
+      else setImage(null)
+    }
+  }
+
+  const takePhoto = async () => {
+    let permissions = await ImagePicker.requestCameraPermissionsAsync();
+
+    if (permissions?.granted) {
+      let result = await ImagePicker.launchCameraAsync();
+
+      if (!result.canceled) setImage(result.assets[0]);
+      else setImage(null)
+    }
+  }
+
+  const getLocation = async () => {
+    let permissions = await Location.requestForegroundPermissionsAsync();
+
+    if (permissions?.granted) {
+      const location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    } else {
+      Alert.alert("Permissions to read location are not granted");
+    }
+  }
+
   //useEffect() code that will display an alert popup if connection is lost
   useEffect(() => {
     if (connectionStatus.isConnected === false) {
@@ -77,6 +118,35 @@ const App = () => {
   }, [connectionStatus.isConnected]);
 
   return (
+//    <View style={StyleSheet.container}>
+//      <Button
+//        onPress={pickImage}
+//        title="Pick an image from the library"
+//      />
+//      <Button
+//        onPress={takePhoto}
+//        title="Open Camera"
+//      />
+//      <Button
+//        onPress={getLocation}
+//        title="Get my location"
+//      />
+//
+//      {
+//        location &&
+//        <MapView
+//          style={{ width: 300, height: 200 }}
+//          region={{
+//            latitude: location.coords.latitude,
+//            longitude: location.coords.longitude,
+//            latitudeDelta: 0.0922,
+//            longitudeDelta: 0.0421,
+//          }}
+//        />
+//      }
+//
+//    </View>
+
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName='Start'
@@ -95,5 +165,13 @@ const App = () => {
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: '#ecf0f1',
+  }
+});
 
 export default App;
