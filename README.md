@@ -12,7 +12,7 @@ The purpose of this project was to create an application for mobile devices usin
 - On Terminal/Powershell, run "npm start" command
 - Scan the shown QR code using the Expo Go application on your phone to open the Chat Application
 
-#Technologies Used
+# Technologies Used
 - React Native
 - Expo (toolchain to write native applications in JS)
 - React Native Gifted Chat library
@@ -22,13 +22,13 @@ The purpose of this project was to create an application for mobile devices usin
 - Firebase cloud storage (for storing images)
 - Expo ImagePicker & MediaLibrary for integrating communication features
 
-#Key Features
+# Key Features
 - Page where users are able to input their name and select a background color to use in the chat screen before joining the chat.
 - A page displays the conversation with an input field and a submit button.
 - Chat provides users with two features: send an image, and send location data.
 - Data is stored online as well as offline.
 
-#Setting up the Application
+# Setting up the Application
 - Aplication requires React Native and is developed with Expo, thus it is important to use a node version that is compatible with Expo:
     * npm install 16.19.0
     * npm use 16.19.0
