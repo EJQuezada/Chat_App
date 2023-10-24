@@ -30,21 +30,21 @@ The purpose of this project was to create an application for mobile devices usin
 
 # Setting up the Application
 - Aplication requires React Native and is developed with Expo, thus it is important to use a node version that is compatible with Expo:
-    * npm install 16.19.0
-    * npm use 16.19.0
+    * **npm install 16.19.0**
+    * **npm use 16.19.0**
 
 - Then, install expo CLI using the following command:
-    * npm install -g expo-cli
+    * **npm install -g expo-cli**
 
-- Next, create an expo acccount (http://expo.dev/), and either install the Expo application on your smartphone or install a virtual machine on your computer (i.e., Android Studio).
+- Next, create an expo acccount (http://expo.dev/), and either install the Expo application on your smartphone **or** install a virtual machine on your computer (i.e., **Android Studio**).
 - Create a React Native template by running the following command on your Terminal/Powershell:
-    * npx create-expo-app Chat App --template
+    * **npx create-expo-app Chat App --template**
 - Run Expo:
-    * npm start, or expo start
+    * **npm start**, or **expo start**
 
 # Database Configuration
 To use your own database for this project create a new database on https://firebase.google.com (after you have first signed-up using a Gmail account). 
-  * Run the following command: npm i firebase.
+  * Run the following command: **npm i firebase**.
   * Navigate to the console ("Go to Console" in the top right)
   * Add Project
   * Once you are in the project, on the left side column under 'Product Categories' use "Build --> Firestore Database"
@@ -58,10 +58,10 @@ To use your own database for this project create a new database on https://fireb
 
 # Libraries necessary to install
 If you wish to use all of the features of this application, you will need to run the following commands in your Terminal/Powershell:
-  * expo install expo-image-picker
-  * expo install react-native.maps
-  * expo install expo-location
-  * expo install expo-media-library
+  * **expo install expo-image-picker**
+  * **expo install react-native.maps**
+  * **expo install expo-location**
+  * **expo install expo-media-library**
 
 # Github Link
 https://github.com/EJQuezada/Chat_App
